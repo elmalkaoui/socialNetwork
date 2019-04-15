@@ -6,29 +6,23 @@
 package controllers;
 
 import entities.AccountEntity;
+import entities.FileEntity;
+import entities.PostEntity;
 import entities.UserEntity;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import service.AccountService;
+import service.PostService;
 import service.UserService;
-import util.AmazonClient;
 import util.Util;
 
 /**
@@ -45,6 +39,9 @@ public class UserController extends AbstractController {
     @Autowired
     UserService userService;
     
+    @Autowired
+    PostService postService;
+    
     
     @RequestMapping(value="index", method = RequestMethod.GET)
         public String init(){
@@ -52,10 +49,7 @@ public class UserController extends AbstractController {
         }
     
     @RequestMapping(value= "signup", method = RequestMethod.POST)
-    protected ModelAndView signUp(
-            HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
-                
+    protected ModelAndView signUp(HttpServletRequest request) throws Exception {         
         if(accountService.isExist(request.getParameter("username"))){
             ModelAndView mv = new ModelAndView("index");
             String message = "username already exist, choose an other one";
@@ -63,7 +57,6 @@ public class UserController extends AbstractController {
             return mv;
         }else {
             UserEntity user = new UserEntity(request.getParameter("firstname"), request.getParameter("lastname"), request.getParameter("birthdate"));
-            //userService.add(user);
             AccountEntity account = new AccountEntity(
                     request.getParameter("username"),
                     request.getParameter("password"),
@@ -77,9 +70,7 @@ public class UserController extends AbstractController {
     }
     
     @RequestMapping(value= "signin", method = RequestMethod.POST)
-    protected ModelAndView signIn(
-            HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+    protected ModelAndView signIn(HttpServletRequest request) throws Exception {
             AccountEntity account = accountService.signIn(request.getParameter("username"), request.getParameter("password"));
             if(account == null){
                 ModelAndView mv = new ModelAndView("index");
@@ -97,17 +88,13 @@ public class UserController extends AbstractController {
     
     
     @RequestMapping(value= "logout", method = RequestMethod.GET)
-    protected String logOut(
-            HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+    protected String logOut(HttpServletRequest request) throws Exception {
         request.getSession().removeAttribute("currentUser");
         return init();
     }
     
     @RequestMapping(value= "friends", method = RequestMethod.GET)
-    protected ModelAndView friends(
-            HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+    protected ModelAndView friends(HttpServletRequest request) throws Exception {
         ModelAndView mv = new ModelAndView("friends");
         UserEntity user = ((AccountEntity)request.getSession().getAttribute("currentUser")).getUser();
         mv.addObject("friends", user.getFriends());
@@ -124,23 +111,16 @@ public class UserController extends AbstractController {
     }
     
     @RequestMapping(value= "addpost", method = RequestMethod.POST)
-    protected ModelAndView addPost(@RequestParam("file") CommonsMultipartFile file,
-            HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
-        ModelAndView mv = new ModelAndView("wall");
+    protected ModelAndView addPost(@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request) throws Exception {
+        ModelAndView mv = new ModelAndView("posts");
         UserEntity user = ((AccountEntity)request.getSession().getAttribute("currentUser")).getUser();
         String content = request.getParameter("content");
         if (!file.getOriginalFilename().isEmpty()) {
-         File filetoUpload = new File("C:/AAWmedia", file.getOriginalFilename());
-         BufferedOutputStream outputStream = new BufferedOutputStream(
-               new FileOutputStream(
-                     filetoUpload));
-         outputStream.write(file.getBytes());
-         outputStream.flush();
-         outputStream.close();
-         AmazonClient s3client = new AmazonClient();
-         System.err.println(" result upload : "+s3client.uploadFile(filetoUpload));
-         mv.addObject("msg", "File uploaded successfully.");
+            String link = Util.uploadFile(file);
+            PostEntity post = new PostEntity(content, new FileEntity(link, file.getContentType()));
+            postService.addPost(post);
+            userService.addPost(user, post);
+            mv.addObject("msg", "File uploaded successfully.");
       } else {
          mv.addObject("msg", "Please select a valid file..");
       }

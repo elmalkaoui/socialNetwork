@@ -5,7 +5,7 @@
  */
 package service;
 
-import entities.AccountEntity;
+import entities.PostEntity;
 import entities.UserEntity;
 import java.util.List;
 
@@ -21,8 +21,9 @@ public interface UserService {
     public UserEntity getUserByID(long id);
     public List<UserEntity> search(UserEntity user);
     public List<UserEntity> search(UserEntity user, String username);
-    public void addFriend(UserEntity friend);
-    public void removeFriend(UserEntity friend);
+    public void addFriend(UserEntity user, UserEntity friend);
+    public void removeFriend(UserEntity user, UserEntity friend);
+    public void addPost(UserEntity user, PostEntity post);
     
     
 }

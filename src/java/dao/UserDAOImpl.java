@@ -5,6 +5,7 @@
  */
 package dao;
 
+import entities.PostEntity;
 import entities.UserEntity;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -71,6 +72,22 @@ public class UserDAOImpl implements UserDAO{
         Query q =em.createQuery("SELECT u FROM UserEntity u where u.firstname = '"+name+"' OR u.lastname = '"+name+"' AND u.id !="+id);
         return q.getResultList();
     }  
+
+    @Override
+    public void addFriend(UserEntity user, UserEntity friend) {
+        user.addFriend(friend);
+    }
+
+    @Override
+    public void addPost(UserEntity user, PostEntity post) {
+        user.addPost(post);
+    }
+
+    @Override
+    public void removeFriend(UserEntity user, UserEntity friend) {
+        user.removeFriend(friend);
+    }
+    
     
     
 }

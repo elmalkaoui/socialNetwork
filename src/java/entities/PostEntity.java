@@ -34,6 +34,15 @@ public class PostEntity implements Serializable {
     @JoinColumn(name="file_id")
     private FileEntity file;
     
+    
+    public PostEntity() {
+    }
+        
+    public PostEntity(String content, FileEntity file) {
+        this.content = content;
+        this.file = file;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -81,8 +90,6 @@ public class PostEntity implements Serializable {
 
     public void setFile(FileEntity file) {
         this.file = file;
-    }
-    
-    
+    }    
     
 }

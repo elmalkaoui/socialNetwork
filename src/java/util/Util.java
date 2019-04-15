@@ -5,15 +5,25 @@
  */
 package util;
 
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import entities.UserEntity;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 /**
  *
@@ -54,4 +64,26 @@ public class Util {
         return result;
     }
     
+    public static  String  uploadFile(CommonsMultipartFile file) throws FileNotFoundException, IOException{ 
+        AmazonClient s3client = new AmazonClient();
+        AmazonS3 s3Client = awsS3Client();
+        String contentType = file.getContentType();
+        InputStream is = file.getInputStream();
+        ObjectMetadata meta = new ObjectMetadata();
+        meta.setContentLength(is.available());
+        String fileName = System.currentTimeMillis()/1000+"-"+file.getOriginalFilename();
+        String bucketURL = "projectaaw";
+        PutObjectRequest request = new PutObjectRequest(bucketURL, fileName, is, meta).withCannedAcl(CannedAccessControlList.PublicRead);
+        s3Client.putObject(request);
+        return bucketURL+"/"+fileName;
+        
+    }
+    
+    public static AmazonS3 awsS3Client() {
+        String awsKeyId = "AKIAJ2LCNBVMGMQHV5PQ";
+        String accessKey = "kyycOJZQXPGY12j6rihNIgVolO3u2CKjS1jzHgv/";
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials(awsKeyId, accessKey);
+        return AmazonS3ClientBuilder.standard().withRegion(Regions.EU_WEST_3)
+                .withCredentials(new AWSStaticCredentialsProvider(awsCreds)).build();
+    }
 }

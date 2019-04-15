@@ -5,6 +5,7 @@
  */
 package dao;
 
+import entities.PostEntity;
 import entities.UserEntity;
 import java.util.List;
 
@@ -17,6 +18,9 @@ public interface UserDAO {
     public void save(UserEntity user);
     public void update(UserEntity user);
     public void delete(UserEntity user);
+    public void addFriend(UserEntity user, UserEntity friend);
+    public void removeFriend(UserEntity user, UserEntity friend);
+    public void addPost(UserEntity user, PostEntity post);
     public UserEntity find(long id);
     public List<UserEntity> findAll(long id);
     public List<UserEntity> findByName(long id, String username);

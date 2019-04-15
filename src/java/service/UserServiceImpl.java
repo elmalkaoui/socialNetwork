@@ -7,6 +7,7 @@ package service;
 
 import entities.UserEntity;
 import dao.UserDAO;
+import entities.PostEntity;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -23,12 +24,15 @@ public class UserServiceImpl implements UserService{
     private UserDAO userDAO;
 
     @Override
-    public void addFriend(UserEntity friend) {
+    public void addFriend(UserEntity user, UserEntity friend) {
+       userDAO.addFriend(user, friend);
+       userDAO.update(user);
     }
 
     @Override
-    public void removeFriend(UserEntity friend) {
-
+    public void removeFriend(UserEntity user, UserEntity friend) {
+       userDAO.removeFriend(user, friend);
+       userDAO.update(user);
     }
 
     @Override
@@ -60,7 +64,12 @@ public class UserServiceImpl implements UserService{
     public void update(UserEntity user) {
         userDAO.update(user);
     }
+
+    @Override
+    public void addPost(UserEntity user, PostEntity post) {
+        user.addPost(post);
+        userDAO.update(user);
+    }
+      
     
-    
-       
 }

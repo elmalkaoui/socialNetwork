@@ -29,6 +29,14 @@ public class FileEntity implements Serializable {
     
     @Column
     private String type;
+
+    public FileEntity() {
+    }
+   
+    public FileEntity(String link, String type) {
+        this.link = link;
+        this.type = type;
+    }
     
     public Long getId() {
         return id;

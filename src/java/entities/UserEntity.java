@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import util.Util;
 
 /**
  *
@@ -104,9 +105,15 @@ public class UserEntity implements Serializable {
         return posts;
     }
 
-    public void setPosts(List<PostEntity> posts) {
-        this.posts = posts;
+    public void addPost(PostEntity postEntity){
+        posts.add(postEntity);
     }
     
+    public void addFriend(UserEntity friend){
+        friends.add(friend);
+    }
     
+    public void removeFriend(UserEntity friend){
+        friends.remove(Util.getPosition(friends, friend.getId()));
+    }
 }
