@@ -129,9 +129,7 @@ public class UserController extends AbstractController {
     
     
     @RequestMapping(value= "search", method = RequestMethod.POST)
-    protected ModelAndView searchFriend(
-            HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+    protected ModelAndView searchFriend(HttpServletRequest request) throws Exception {
         ModelAndView mv = new ModelAndView("search");
         UserEntity user = ((AccountEntity)request.getSession().getAttribute("currentUser")).getUser();
         System.err.println("le username : "+request.getParameter("username"));
