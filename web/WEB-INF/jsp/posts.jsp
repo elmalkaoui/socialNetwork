@@ -26,7 +26,7 @@
                 </form>
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/posts.htm" >Wall</a>
+                    <a class="nav-link" href="${contextPath}/posts.htm" >Posts</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="${contextPath}/friends.htm">Friends</a>
@@ -59,6 +59,15 @@
                   </div>
                 </div>
             </div>
+            
+            <c:forEach items="${posts}" var="post">
+                <br/>
+               <div class="card" style="width:50%">
+                   <h3>${post.content}</h3>
+                   <br/>
+                   <img class="card-img-top" src="<c:url value="${post.fileLink}" />" alt="Card image" style="width:100%">                       
+                </div>
+            </c:forEach>
             </center>
             </div>
 </body>

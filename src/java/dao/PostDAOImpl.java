@@ -58,8 +58,8 @@ public class PostDAOImpl implements PostDAO{
         Query q =em.createQuery("SELECT p FROM PostEntity p");
         return q.getResultList();
     }
-            
-            
+    
+    
     
     
 }

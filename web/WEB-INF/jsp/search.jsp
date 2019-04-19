@@ -26,7 +26,7 @@
                 </form>
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/posts.htm">Wall</a>
+                    <a class="nav-link" href="${contextPath}/posts.htm">Posts</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="${contextPath}/friends.htm">Friends</a>

@@ -8,11 +8,12 @@ package entities;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -30,17 +31,26 @@ public class PostEntity implements Serializable {
     @Column
     private String content;
     
-    @OneToOne
-    @JoinColumn(name="file_id")
-    private FileEntity file;
+    @Column 
+    private String fileLink;
+    
+    @Column 
+    private String fileType;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="user_fk")
+    private UserEntity author;
+    
     
     
     public PostEntity() {
     }
         
-    public PostEntity(String content, FileEntity file) {
+    public PostEntity(String content, String fileLink, String type, UserEntity user) {
         this.content = content;
-        this.file = file;
+        this.fileLink = fileLink;
+        this.fileType = type;
+        this.author = user;
     }
     
     public Long getId() {
@@ -65,7 +75,7 @@ public class PostEntity implements Serializable {
             return false;
         }
         PostEntity other = (PostEntity) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -84,12 +94,16 @@ public class PostEntity implements Serializable {
         this.content = content;
     }
 
-    public FileEntity getFile() {
-        return file;
+    public String getFileLink() {
+        return fileLink;
     }
 
-    public void setFile(FileEntity file) {
-        this.file = file;
-    }    
+    public String getFileType() {
+        return fileType;
+    }
+
+    public UserEntity getAuthor() {
+        return author;
+    }
     
 }

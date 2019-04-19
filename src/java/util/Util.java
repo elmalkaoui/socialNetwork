@@ -13,14 +13,10 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import entities.UserEntity;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Time;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -39,17 +35,7 @@ public class Util {
         }
         return -1;
     }
-    
-    public static String  uploadFile(File file){
-        AmazonS3 s3Client;
-        s3Client = AmazonS3ClientBuilder.defaultClient();
         
-        String fileName = Time.valueOf(LocalTime.MIN).toString()+"-"+file.getName();
-        PutObjectResult result = s3Client.putObject("https://s3.console.aws.amazon.com/s3/buckets/projectaaw", fileName, file);
-        
-        return "https://s3.console.aws.amazon.com/s3/buckets/projectaaw/"+fileName;
-    }
-    
     public static List<UserEntity> externJoin(List<UserEntity> list1, List<UserEntity> list2){
         List<UserEntity> result = new ArrayList<UserEntity>();
         boolean in = false;
@@ -65,7 +51,6 @@ public class Util {
     }
     
     public static  String  uploadFile(CommonsMultipartFile file) throws FileNotFoundException, IOException{ 
-        AmazonClient s3client = new AmazonClient();
         AmazonS3 s3Client = awsS3Client();
         String contentType = file.getContentType();
         InputStream is = file.getInputStream();
@@ -73,9 +58,9 @@ public class Util {
         meta.setContentLength(is.available());
         String fileName = System.currentTimeMillis()/1000+"-"+file.getOriginalFilename();
         String bucketURL = "projectaaw";
-        PutObjectRequest request = new PutObjectRequest(bucketURL, fileName, is, meta).withCannedAcl(CannedAccessControlList.PublicRead);
+        PutObjectRequest request = new PutObjectRequest(bucketURL, fileName, is, meta).withCannedAcl(CannedAccessControlList.PublicReadWrite);
         s3Client.putObject(request);
-        return bucketURL+"/"+fileName;
+        return "https://s3.eu-west-3.amazonaws.com/projectaaw/"+fileName;
         
     }
     

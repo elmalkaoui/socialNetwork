@@ -6,7 +6,6 @@
 package controllers;
 
 import entities.AccountEntity;
-import entities.FileEntity;
 import entities.PostEntity;
 import entities.UserEntity;
 import java.util.List;
@@ -71,19 +70,19 @@ public class UserController extends AbstractController {
     
     @RequestMapping(value= "signin", method = RequestMethod.POST)
     protected ModelAndView signIn(HttpServletRequest request) throws Exception {
-            AccountEntity account = accountService.signIn(request.getParameter("username"), request.getParameter("password"));
-            if(account == null){
-                ModelAndView mv = new ModelAndView("index");
-                String message = "account does not exist, check your username and password.";
-                mv.addObject("message",message);
-                return mv;
-            }else {
-                request.getSession().setAttribute("currentUser", account);
-                ModelAndView mv = new ModelAndView("home");
-                String message = "Welcome Back "+account.getUsername();
-                mv.addObject("message",message);
-                return mv;
-            }
+        AccountEntity account = accountService.signIn(request.getParameter("username"), request.getParameter("password"));
+        if(account == null){
+            ModelAndView mv = new ModelAndView("index");
+            String message = "account does not exist, check your username and password.";
+            mv.addObject("message",message);
+            return mv;
+        }else {
+            request.getSession().setAttribute("currentUser", account);
+            ModelAndView mv = new ModelAndView("home");
+            String message = "Welcome Back "+account.getUsername();
+            mv.addObject("message",message);
+            return mv;
+        }
     }
     
     
@@ -92,21 +91,12 @@ public class UserController extends AbstractController {
         request.getSession().removeAttribute("currentUser");
         return init();
     }
-    
-    @RequestMapping(value= "friends", method = RequestMethod.GET)
-    protected ModelAndView friends(HttpServletRequest request) throws Exception {
-        ModelAndView mv = new ModelAndView("friends");
-        UserEntity user = ((AccountEntity)request.getSession().getAttribute("currentUser")).getUser();
-        mv.addObject("friends", user.getFriends());
-        return mv;
-    }
-    
-    
+     
     @RequestMapping(value= "posts", method = RequestMethod.GET)
-    protected ModelAndView wall(
-            HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
+    protected ModelAndView wall(HttpServletRequest request) throws Exception {
         ModelAndView mv = new ModelAndView("posts");
+        UserEntity user = ((AccountEntity)request.getSession().getAttribute("currentUser")).getUser();
+        mv.addObject("posts", postService.getPosts());
         return mv;
     }
     
@@ -117,17 +107,19 @@ public class UserController extends AbstractController {
         String content = request.getParameter("content");
         if (!file.getOriginalFilename().isEmpty()) {
             String link = Util.uploadFile(file);
-            PostEntity post = new PostEntity(content, new FileEntity(link, file.getContentType()));
+            PostEntity post = new PostEntity(content, link, file.getContentType(), user);
             postService.addPost(post);
             userService.addPost(user, post);
-            mv.addObject("msg", "File uploaded successfully.");
       } else {
-         mv.addObject("msg", "Please select a valid file..");
+            PostEntity post = new PostEntity(content,"", "", user);
+            postService.addPost(post);
+            userService.addPost(user, post);
       }
+        mv.addObject("posts", postService.getPosts());
         return mv;
-    }
+    }  
     
-    
+        
     @RequestMapping(value= "search", method = RequestMethod.POST)
     protected ModelAndView searchFriend(HttpServletRequest request) throws Exception {
         ModelAndView mv = new ModelAndView("search");
@@ -142,19 +134,26 @@ public class UserController extends AbstractController {
         return mv;
     }
     
+        
+    @RequestMapping(value= "friends", method = RequestMethod.GET)
+    protected ModelAndView friends(HttpServletRequest request) throws Exception {
+        ModelAndView mv = new ModelAndView("friends");
+        UserEntity user = ((AccountEntity)request.getSession().getAttribute("currentUser")).getUser();
+        mv.addObject("friends", user.getFriends());
+        return mv;
+    }
+    
     @RequestMapping(value= "addfriend", method = RequestMethod.POST)
     protected ModelAndView addFriend(
             HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         UserEntity user = ((AccountEntity) request.getSession().getAttribute("currentUser")).getUser();
-        user.getFriends().add(userService.getUserByID(Long.parseLong(request.getParameter("userID"))));
-        userService.update(user);
+        userService.addFriend(user, userService.getUserByID(Long.parseLong(request.getParameter("userID"))));
         ModelAndView mv = new ModelAndView("friends");
         String message = "friend added to yout friend list";
         mv.addObject("message",message);
         return mv;
-    }
-    
+    }  
     
     @RequestMapping(value= "removefriend", method = RequestMethod.POST)
     protected ModelAndView removeFriend(
@@ -172,8 +171,7 @@ public class UserController extends AbstractController {
         }
         ModelAndView mv = new ModelAndView("friends");
         return mv;
-    }
-    
+    } 
     
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {

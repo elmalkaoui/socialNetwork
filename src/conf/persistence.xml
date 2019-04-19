@@ -5,7 +5,6 @@
     <class>entities.UserEntity</class>
     <class>entities.AccountEntity</class>
     <class>entities.PostEntity</class>
-    <class>entities.FileEntity</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/facebookdb"/>
