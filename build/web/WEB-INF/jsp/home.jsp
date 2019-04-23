@@ -33,6 +33,12 @@
                     <a class="nav-link" href="${contextPath}/friends.htm">Friends</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link" href="${contextPath}/notifications.htm">notifications</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="${contextPath}/notifications.htm">settings</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" href="${contextPath}/logout.htm">Logout</a>
                   </li>
                 </ul>

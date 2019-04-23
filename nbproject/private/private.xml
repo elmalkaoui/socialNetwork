@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/THINKPAD%20T450/Documents/NetBeansProjects/TP_AAW/TP3/facebook/src/java/controllers/UserController.java</file>
             <file>file:/C:/Users/THINKPAD%20T450/Documents/NetBeansProjects/TP_AAW/TP3/facebook/web/WEB-INF/jsp/posts.jsp</file>
-            <file>file:/C:/Users/THINKPAD%20T450/Documents/NetBeansProjects/TP_AAW/TP3/facebook/web/WEB-INF/jsp/friends.jsp</file>
-            <file>file:/C:/Users/THINKPAD%20T450/Documents/NetBeansProjects/TP_AAW/TP3/facebook/src/java/util/Util.java</file>
+            <file>file:/C:/Users/THINKPAD%20T450/Documents/NetBeansProjects/TP_AAW/TP3/facebook/src/java/controllers/UserController.java</file>
+            <file>file:/C:/Users/THINKPAD%20T450/Documents/NetBeansProjects/TP_AAW/TP3/facebook/web/WEB-INF/jsp/setting.jsp</file>
+            <file>file:/C:/Users/THINKPAD%20T450/Documents/NetBeansProjects/TP_AAW/TP3/facebook/web/WEB-INF/dispatcher-servlet.xml</file>
+            <file>file:/C:/Users/THINKPAD%20T450/Documents/NetBeansProjects/TP_AAW/TP3/facebook/src/java/entities/UserEntity.java</file>
+            <file>file:/C:/Users/THINKPAD%20T450/Documents/NetBeansProjects/TP_AAW/TP3/facebook/src/java/entities/PostEntity.java</file>
         </group>
     </open-files>
 </project-private>

@@ -62,7 +62,8 @@ public class UserDAOImpl implements UserDAO{
     @Transactional
     @Override
     public List<UserEntity> findAll(long id) {
-        Query q =em.createQuery("SELECT u FROM UserEntity u WHERE u.id != "+id);
+        Query q =em.createNativeQuery("SELECT * FROM USERENTITY u WHERE u.ID != "+id+" AND u.ID not in (SELECT FRIEND_ID FROM USER_FRIEND WHERE user_id = "+id+")", UserEntity.class);
+        System.out.println("size : "+q.getResultList().size());
         return q.getResultList();
     }
     
@@ -86,6 +87,13 @@ public class UserDAOImpl implements UserDAO{
     @Override
     public void removeFriend(UserEntity user, UserEntity friend) {
         user.removeFriend(friend);
+    }
+
+    @Override
+    public UserEntity findByUserName(String username) {
+        Query q = em.createNativeQuery("SELECT u.* FROM UserEntity u, AccountEntity a  WHERE u.id = a.user_id AND a.username = '"+username+"'", UserEntity.class);
+        List<UserEntity> list = q.getResultList();
+        return list != null ? !list.isEmpty() ? (UserEntity)list.get(0) : null : null ;
     }
     
     

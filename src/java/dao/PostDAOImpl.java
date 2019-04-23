@@ -54,8 +54,10 @@ public class PostDAOImpl implements PostDAO{
     }
 
     @Override
-    public List<PostEntity> findAll() {
-        Query q =em.createQuery("SELECT p FROM PostEntity p");
+    public List<PostEntity> findAll(Long user_id){
+        Query q =em.createNativeQuery("SELECT p.* FROM PostEntity p, USERENTITY u WHERE p.user_fk = u.ID AND u.ID = "+user_id+"\nUNION\n" +
+        "SELECT p.* FROM PostEntity p, USERENTITY u, USER_FRIEND uf WHERE p.user_fk = u.ID AND u.ID in (SELECT friend_id FROM USER_FRIEND WHERE user_id = "+user_id+")"
+                + "ORDER by ID DESC", PostEntity.class);
         return q.getResultList();
     }
     

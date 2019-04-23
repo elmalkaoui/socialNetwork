@@ -22,6 +22,7 @@ public interface UserDAO {
     public void removeFriend(UserEntity user, UserEntity friend);
     public void addPost(UserEntity user, PostEntity post);
     public UserEntity find(long id);
+    public UserEntity findByUserName(String username);
     public List<UserEntity> findAll(long id);
     public List<UserEntity> findByName(long id, String username);
     

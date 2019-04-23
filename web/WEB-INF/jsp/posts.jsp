@@ -32,6 +32,12 @@
                     <a class="nav-link" href="${contextPath}/friends.htm">Friends</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link" href="${contextPath}/notifications.htm">notifications</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="${contextPath}/setting.htm">settings</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" href="${contextPath}/logout.htm">Logout</a>
                   </li>
                 </ul>
@@ -59,16 +65,20 @@
                   </div>
                 </div>
             </div>
-            
             <c:forEach items="${posts}" var="post">
                 <br/>
-               <div class="card" style="width:50%">
-                   <h3>${post.content}</h3>
-                   <br/>
+               <div class="card card-body" style="width:50%">
+                   <div align="left">
+                   <table><tr><td><img src="${post.author.imageLink}" style="width:50px; height:50px; border-radius:50%"></td>
+                           <td><h5>&nbsp;${post.author}</h5></td>
+                    </tr></table>
+                   <p>${post.content}</p>
                    <img class="card-img-top" src="<c:url value="${post.fileLink}" />" alt="Card image" style="width:100%">                       
                 </div>
+               </div>
             </c:forEach>
-            </center>
             </div>
+            </center>
+
 </body>
 </html>

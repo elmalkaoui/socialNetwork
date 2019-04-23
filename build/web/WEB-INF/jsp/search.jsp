@@ -32,6 +32,12 @@
                     <a class="nav-link" href="${contextPath}/friends.htm">Friends</a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link" href="${contextPath}/notifications.htm">notifications</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="${contextPath}/setting.htm">settings</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" href="${contextPath}/logout.htm">Logout</a>
                   </li>
                 </ul>
@@ -44,8 +50,8 @@
                 <tr>
                     <c:forEach items="${friends}" var="item">                 
                     <td>
-                    <div class="card" style="width:400px">
-                        <img class="card-img-top" src="<c:url value="/resources/img/friend.jpg" />" alt="Card image" style="width:100%">
+                    <div class="card card-body" align="center">
+                        <img class="card-img-top" src="<c:url value="${item.imageLink}" />" style="width:130px; height:130px; border-radius:50%">
                         <div class="card-body">
                           <h4 class="card-title">${item.firstname}<br></h4>
                           <p class="card-text">Hi am using facebook</p>

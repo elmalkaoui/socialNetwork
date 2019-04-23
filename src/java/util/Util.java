@@ -35,21 +35,7 @@ public class Util {
         }
         return -1;
     }
-        
-    public static List<UserEntity> externJoin(List<UserEntity> list1, List<UserEntity> list2){
-        List<UserEntity> result = new ArrayList<UserEntity>();
-        boolean in = false;
-        for (UserEntity user1 : list1) {
-            for (UserEntity user2 : list2) {
-                   if(user1.getId().equals(user2.getId()))
-                       in = true;
-            }
-            if (in == false )
-                result.add(user1);
-        }
-        return result;
-    }
-    
+          
     public static  String  uploadFile(CommonsMultipartFile file) throws FileNotFoundException, IOException{ 
         AmazonS3 s3Client = awsS3Client();
         String contentType = file.getContentType();

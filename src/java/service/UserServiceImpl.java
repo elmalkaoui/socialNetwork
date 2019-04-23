@@ -11,7 +11,6 @@ import entities.PostEntity;
 import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
-import util.Util;
 
 /**
  *
@@ -42,7 +41,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<UserEntity> search(UserEntity user) {
-        return Util.externJoin(userDAO.findAll(user.getId()), user.getFriends());
+        return userDAO.findAll(user.getId());
     }
 
     @Override
@@ -69,6 +68,11 @@ public class UserServiceImpl implements UserService{
     public void addPost(UserEntity user, PostEntity post) {
         user.addPost(post);
         userDAO.update(user);
+    }
+
+    @Override
+    public UserEntity getUserByUserName(String username) {
+        return userDAO.findByUserName(username);
     }
       
     

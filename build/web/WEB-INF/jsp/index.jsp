@@ -17,38 +17,49 @@
 </head>
     <body>
         <div class="container">
+        <div class="col-sm-6">
         <h1>${message}</h1>
-            <h2>Sign up</h2>
+        <div class="col-sm-6" align="center">
+            <h2>Sign in</h2>
                 <form action="signin.htm" method="POST">
-
-                    <label>username</label><br>
-                    <input type="text" name="username"/><br>
-
-                    <label>Password</label><br>
-                    <input type="password" name="password"/><br><br>
-
-                    <input type="submit" name="signin" value="Sign in"/>
+                    <div class="form-group">
+                        <label>username</label><br>
+                        <input type="text" name="username"/><br>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label><br>
+                        <input type="password" name="password"/><br><br>
+                    </div>
+                    <input type="submit" name="signin" value="Sign in" class="btn btn-default"/>
                 </form>
+        </div>
+        <div class="col-sm-6" align="center">
         <h2 color="red">Sign up</h2>
             <form action="signup.htm" method="POST">
-
-                <label>username</label><br>
-                <input type="text" name="username"/><br>
-
-                <label>firstname</label><br>
-                <input type="text" name="firstname"/><br>
-
-                <label>lastname</label><br>
-                <input type="text" name="lastname"/><br>
-
-                <label>birthday date</label><br>
-                <input type="date" name="birthdate"/><br>
-
-                <label>Password</label><br>
-                <input type="password" name="password"/><br><br>
-
-                <input type="submit" name="signin" value="Sign in"/>
+                <div class="form-group">
+                    <label>username</label><br>
+                    <input type="text" name="username"/><br>
+                </div>
+                <div class="form-group">
+                    <label>firstname</label><br>
+                    <input type="text" name="firstname"/><br>
+                </div>
+                <div class="form-group">
+                    <label>lastname</label><br>
+                    <input type="text" name="lastname"/><br>
+                </div>
+                <div class="form-group">
+                    <label>birth date</label><br>
+                    <input type="date" name="birthdate"/><br>
+                </div>
+                <div class="form-group">
+                    <label>password</label><br>
+                    <input type="password" name="password"/><br>
+                </div>
+                
+                <input type="submit" name="signin" value="Sign in" class="btn btn-defaul"/>
             </form>
+        </div>
         </div>    
 </body>
 </html>

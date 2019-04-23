@@ -7,10 +7,11 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-17T11:30:10")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-23T23:52:22")
 @StaticMetamodel(UserEntity.class)
 public class UserEntity_ { 
 
+    public static volatile SingularAttribute<UserEntity, String> imageLink;
     public static volatile SingularAttribute<UserEntity, String> firstname;
     public static volatile SingularAttribute<UserEntity, String> birthdate;
     public static volatile SingularAttribute<UserEntity, Long> id;

@@ -18,6 +18,6 @@ public interface PostDAO {
     public void update(PostEntity post);
     public void delete(PostEntity post);
     public PostEntity find(long id);
-    public List<PostEntity> findAll();
+    public List<PostEntity> findAll(Long user_id);
     
 }

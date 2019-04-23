@@ -17,5 +17,5 @@ public interface PostService {
     public void addPost(PostEntity post);
     public void removePost(PostEntity post);
     public void update(PostEntity post);
-    public List<PostEntity> getPosts();
+    public List<PostEntity> getPosts(Long user_id);
 }

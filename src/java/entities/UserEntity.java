@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,17 +39,20 @@ public class UserEntity implements Serializable {
     private String lastname;
     
     @Column
-    private String birthdate;       
+    private String birthdate;
+
+    @Column
+    private String imageLink;
     
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
     name="user_friend",//correspond à la liste d'amis.
-    joinColumns=@JoinColumn(name="user_id"),
-    inverseJoinColumns=@JoinColumn(name="friend_id")
+    joinColumns=@JoinColumn(name="user_id", unique = false),
+    inverseJoinColumns=@JoinColumn(name="friend_id", unique= false)
     )
     private List<UserEntity> friends = new ArrayList<UserEntity>();
     
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<PostEntity> posts = new ArrayList<PostEntity>();
     
     
@@ -58,7 +62,8 @@ public class UserEntity implements Serializable {
     public UserEntity(String firstname, String lastname, String birthdate) {
         this.firstname = firstname;
         this.lastname = lastname;
-        this.birthdate = birthdate;        
+        this.birthdate = birthdate; 
+        this.imageLink = "https://s3.eu-west-3.amazonaws.com/projectaaw/default-profil.png";
     }
 
     public Long getId() {
@@ -97,10 +102,6 @@ public class UserEntity implements Serializable {
         return friends;
     }
 
-    public void setFriends(List<UserEntity> friends) {
-        this.friends = friends;
-    }
-
     public List<PostEntity> getPosts() {
         return posts;
     }
@@ -116,4 +117,19 @@ public class UserEntity implements Serializable {
     public void removeFriend(UserEntity friend){
         friends.remove(Util.getPosition(friends, friend.getId()));
     }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    @Override
+    public String toString() {
+        return firstname+" "+lastname;
+    }
+    
+    
 }

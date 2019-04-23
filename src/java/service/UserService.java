@@ -19,6 +19,7 @@ public interface UserService {
     public void remove(UserEntity userEntity);
     public void update(UserEntity user);
     public UserEntity getUserByID(long id);
+    public UserEntity getUserByUserName(String username);
     public List<UserEntity> search(UserEntity user);
     public List<UserEntity> search(UserEntity user, String username);
     public void addFriend(UserEntity user, UserEntity friend);

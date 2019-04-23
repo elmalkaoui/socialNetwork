@@ -37,8 +37,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostEntity> getPosts() {
-        return postDAO.findAll();
+    public List<PostEntity> getPosts(Long user_id) {
+        return postDAO.findAll(user_id);
     }
     
 }
