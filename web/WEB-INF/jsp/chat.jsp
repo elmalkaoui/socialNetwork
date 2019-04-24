@@ -5,47 +5,128 @@
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
-<head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <head>
+        <link href="${contextPath}/resources/css/chat.css" type="text/css" rel="stylesheet"
         <title>facebook</title>
-</head>
+    </head>
     <body>
-            <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-                <form class="form-inline" method="POST" action="search.htm">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">@</span>
-                    </div>
-                      <input type="text" class="form-control" placeholder="Username" name="username">
-                  </div>    
-                </form>
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/posts.htm">Posts</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/friends.htm">Friends</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/notifications.htm">notifications</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/notifications.htm">settings</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/logout.htm">Logout</a>
-                  </li>
-                </ul>
-            </nav>
-            <br>
+        <jsp:include page="navbar.jsp" />
         <div class="container">
-        <h1>${message}</h1>
-        </div>    
-</body>
+            <h3 class=" text-center">Messaging</h3>
+            <div class="messaging">
+                <div class="inbox_msg">
+                    <div class="inbox_people">
+                        <div class="headind_srch">
+                            <div class="recent_heading">
+                                <h4>Recent</h4>
+                            </div>
+                            <div class="srch_bar">
+                                <div class="stylish-input-group">
+                                    <input type="text" class="search-bar"  placeholder="Search" >
+                                    <span class="input-group-addon">
+                                        <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                    </span> </div>
+                            </div>
+                        </div>
+                        <div class="inbox_chat">
+                            <div class="chat_list active_chat">
+                                <div class="chat_people">
+                                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="chat_ib">
+                                        <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                        <p>Test, which is a new approach to have all solutions 
+                                            astrology under one roof.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat_list">
+                                <div class="chat_people">
+                                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="chat_ib">
+                                        <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                        <p>Test, which is a new approach to have all solutions 
+                                            astrology under one roof.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat_list">
+                                <div class="chat_people">
+                                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="chat_ib">
+                                        <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                        <p>Test, which is a new approach to have all solutions 
+                                            astrology under one roof.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat_list">
+                                <div class="chat_people">
+                                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="chat_ib">
+                                        <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                        <p>Test, which is a new approach to have all solutions 
+                                            astrology under one roof.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat_list">
+                                <div class="chat_people">
+                                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="chat_ib">
+                                        <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                        <p>Test, which is a new approach to have all solutions 
+                                            astrology under one roof.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat_list">
+                                <div class="chat_people">
+                                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="chat_ib">
+                                        <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                        <p>Test, which is a new approach to have all solutions 
+                                            astrology under one roof.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="chat_list">
+                                <div class="chat_people">
+                                    <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="chat_ib">
+                                        <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+                                        <p>Test, which is a new approach to have all solutions 
+                                            astrology under one roof.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mesgs">
+                        <div class="msg_history">
+                            <div class="incoming_msg">
+                                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                <div class="received_msg">
+                                    <div class="received_withd_msg">
+                                        <p>Test which is a new approach to have all
+                                            solutions</p>
+                                        <span class="time_date"> 11:01 AM    |    June 9</span></div>
+                                </div>
+                            </div>
+                            <div class="outgoing_msg">
+                                <div class="sent_msg">
+                                    <p>Test which is a new approach to have all
+                                        solutions</p>
+                                    <span class="time_date"> 11:01 AM    |    June 9</span> </div>
+                            </div>
+                        <div class="type_msg">
+                            <div class="input_msg_write">
+                                <input type="text" class="write_msg" placeholder="Type a message" />
+                                <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div></div>
+    </body>
 </html>

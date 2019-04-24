@@ -128,6 +128,21 @@ public class UserController extends AbstractController {
             return mv;
         }
     }
+    
+    @RequestMapping(value = "chat", method = RequestMethod.GET)
+    protected ModelAndView chat(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("currentUser") != null) {
+            ModelAndView mv = new ModelAndView("chat");
+            AccountEntity account = (AccountEntity) session.getAttribute("currentUser");
+            mv.addObject("account", account);
+            return mv;
+        } else {
+            ModelAndView mv = new ModelAndView("index");
+            mv.addObject("message", "You must login");
+            return mv;
+        }
+    }
 
     @RequestMapping(value = "signup", method = RequestMethod.POST)
     protected ModelAndView signUp(HttpServletRequest request) throws Exception {
@@ -291,7 +306,22 @@ public class UserController extends AbstractController {
         mv.addObject("message", "You must login");
         return mv;
     }
-
+    
+    @RequestMapping(value = "addMessage", method = RequestMethod.POST)
+    protected ModelAndView addMessage(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("currentUser") != null) {
+            ModelAndView mv = new ModelAndView("chat");
+            AccountEntity account = (AccountEntity) session.getAttribute("currentUser");
+            mv.addObject("account", account);
+            return mv;
+        } else {
+            ModelAndView mv = new ModelAndView("index");
+            mv.addObject("message", "You must login");
+            return mv;
+        }
+    }
+    
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

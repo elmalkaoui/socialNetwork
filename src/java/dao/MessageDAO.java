@@ -21,4 +21,5 @@ public interface MessageDAO {
     public List<MessageEntity> findAll(Long senderID, Long receiverID);
     
     
+    
 }
