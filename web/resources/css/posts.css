@@ -1,0 +1,15 @@
+.inputfile{
+    opacity: 0;
+    width:0.1;
+    height:0.1;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.filebtn{
+    background: orangered;
+    padding: 3% 7% 3% 7%;
+    color:white;
+    border-radius: 50vh;
+}

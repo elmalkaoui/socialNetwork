@@ -16,34 +16,9 @@
         <title>facebook</title>
 </head>
     <body>
-            <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-                <form class="form-inline" method="POST" action="search.htm">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">@</span>
-                    </div>
-                      <input type="text" class="form-control" placeholder="Username" name="username">
-                  </div>    
-                </form>
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/posts.htm">Posts</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/friends.htm">Friends</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/notifications.htm">notifications</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/setting.htm">settings</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/logout.htm">Logout</a>
-                  </li>
-                </ul>
-            </nav>
-            <br>
+        <jsp:include page="navbar.jsp" />
+            
+        <br>
         <div class="container">
         <h1>${message}</h1>
         <table>
@@ -55,7 +30,7 @@
                         <img class="card-img-top" src="<c:url value="${item.imageLink}" />" style="width:130px; height:130px; border-radius:50%">
                         <div class="card-body">
                           <h4 class="card-title">${item.firstname}<br></h4>
-                          <p class="card-text">Hi am using facebook</p>
+                          <p class="card-text">Hi i am using Bubbly</p>
                           <form method="POST" action="removefriend.htm">
                               <input type="hidden" name="userID" value="${item.id}"/>
                               <input type="submit" class="btn btn-primary" value="unfollow"/>
