@@ -5,61 +5,59 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-<head>
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <title>facebook</title>
-</head>
-    <body>
-        <div class="container">
-        <div class="col-sm-6">
-        <h1>${message}</h1>
-        <div class="col-sm-6" align="center">
-            <h2>Sign in</h2>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+        <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/login.css"/>
+        <title>Facebook</title>
+    </head>
+    <body style="padding: 0">
+        <div class="main-container">
+            <div id="signin-form">
                 <form action="signin.htm" method="POST">
-                    <div class="form-group">
-                        <label>username</label><br>
-                        <input type="text" name="username"/><br>
+                    <div>
+                        <label>Username</label>
+                        <input type="text" name="username" placeholder="Yassine" class="form form-control"/>
                     </div>
-                    <div class="form-group">
-                        <label>Password</label><br>
-                        <input type="password" name="password"/><br><br>
+                    <div>
+                        <label>Password</label>
+                        <input type="password" name="password" placeholder="********" class="form form-control"/>    
                     </div>
-                    <input type="submit" name="signin" value="Sign in" class="btn btn-default"/>
+                    <div>
+                        <h1></h1><br>
+                        <input type="submit" class="btn btn-dark" name="signin" value="Log in"/>
+                    </div>
+                    
                 </form>
-        </div>
-        <div class="col-sm-6" align="center">
-        <h2 color="red">Sign up</h2>
-            <form action="signup.htm" method="POST">
-                <div class="form-group">
-                    <label>username</label><br>
-                    <input type="text" name="username"/><br>
+            </div>
+            <div>
+                <div class="card signup-card col-md-3">
+                    <div class="card-body">
+                        <h2 class="card-title">Join the world</h2>
+                        <h5 style="color:red">${message}</h5><br>
+                        <div class="card-text">
+                            <form action="signup.htm" method="POST">
+                                <input type="text" name="username" placeholder="username" class="form form-control"/><br>
+                                <input type="text" name="firstname" placeholder="firstname" class="form form-control"/><br>
+                                <input type="text" name="lastname" placeholder="lastname" class="form form-control"/><br>
+                                <input type="password" name="password" placeholder="password" class="form form-control"/><br>
+                                <label>Birthdate</label>
+                                <input type="date" name="birthdate" class="form form-control"/><br>
+
+                                <input type="submit" class="btn btn-outline-primary" name="signin" value="Sign up"/>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>firstname</label><br>
-                    <input type="text" name="firstname"/><br>
+                <div class="col-md-1"></div>
+                <div class="col-md-7 header">
+                    <h1>Welcome to Bubbly</h1><br>
+                    <p>Chat with friends</p>
+                    <p>Play games</p>
+                    <p>Watch movies</p>
                 </div>
-                <div class="form-group">
-                    <label>lastname</label><br>
-                    <input type="text" name="lastname"/><br>
-                </div>
-                <div class="form-group">
-                    <label>birth date</label><br>
-                    <input type="date" name="birthdate"/><br>
-                </div>
-                <div class="form-group">
-                    <label>password</label><br>
-                    <input type="password" name="password"/><br>
-                </div>
-                
-                <input type="submit" name="signin" value="Sign in" class="btn btn-defaul"/>
-            </form>
-        </div>
+            </div>
+
         </div>    
-</body>
+    </body>
 </html>

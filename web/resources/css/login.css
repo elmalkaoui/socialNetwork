@@ -1,0 +1,46 @@
+.main-container{
+    margin:0;
+    height:100vh;
+    background: url('https://hdqwalls.com/download/dark-clean-background-4k-2560x1080.jpg') no-repeat;
+    background-size: cover;
+}
+
+#signin-form{
+    margin-left: 6%;
+    padding:1%;
+}
+
+#signin-form form{
+    display: flex;
+    flex-flow: row;
+    width: 60rem;
+}
+
+#signin-form form label{
+    color:white;
+}
+
+#signin-form form div{
+    margin-right: 1%;
+}
+
+.signup-card{
+    width:30rem;
+    margin-left:6.5%;
+    position: absolute;
+}
+
+.header{
+    margin-top:8%;
+    margin-left:40%;
+}
+
+.header h1{
+    font-size: 4em;
+    color:whitesmoke;
+}
+
+.header p{
+    font-size: 1.5em;
+    color:whitesmoke;
+}
