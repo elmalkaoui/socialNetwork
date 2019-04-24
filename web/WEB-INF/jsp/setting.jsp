@@ -27,33 +27,7 @@
         </style>
 </head>
     <body>
-            <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-                <form class="form-inline" method="POST" action="search.htm">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">@</span>
-                    </div>
-                      <input type="text" class="form-control" placeholder="Username" name="username">
-                  </div>    
-                </form>
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/posts.htm">Posts</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/friends.htm">Friends</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/notifications.htm">notifications</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/setting.htm">settings</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/logout.htm">Logout</a>
-                  </li>
-                </ul>
-            </nav>
+            <jsp:include page="navbar.jsp" />
             <br>
         <div class="container">
         <center>
