@@ -49,7 +49,7 @@
             <c:forEach items="${notifications}" var="notif">
                 <br/>
                <div class="card" style="width:50%">
-                   <p>${notif.sender.firstname} say that : </p><h3>${notif.post.content}</h3>                       
+                   <p>${notif.sender.firstname} say that : </p><h3>${notif.message}</h3>                       
                 </div>
             </c:forEach>
             </center>

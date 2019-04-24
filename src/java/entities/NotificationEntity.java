@@ -6,6 +6,7 @@
 package entities;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,22 +27,22 @@ public class NotificationEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    @Column
+    private String message;
+    
     @OneToOne(fetch = FetchType.EAGER)
     private UserEntity sender;
     
     @OneToOne(fetch = FetchType.EAGER)
     private UserEntity receiver;
-    
-    @OneToOne(fetch = FetchType.EAGER)
-    private PostEntity post;
 
     public NotificationEntity() {
     }
    
-    public NotificationEntity(UserEntity sender, UserEntity receiver, PostEntity post) {
+    public NotificationEntity(UserEntity sender, UserEntity receiver, String msg) {
         this.sender = sender;
         this.receiver = receiver;
-        this.post = post;
+        this.message = msg;
     }
 
     public Long getId() {
@@ -85,8 +86,7 @@ public class NotificationEntity implements Serializable {
         return receiver;
     }
 
-    public PostEntity getPost() {
-        return post;
-    }
-    
+    public String getMessage() {
+        return message;
+    }    
 }

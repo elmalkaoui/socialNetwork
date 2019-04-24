@@ -35,7 +35,15 @@ public class Util {
         }
         return -1;
     }
-          
+    
+    public static ArrayList<String> getTags(String content){
+        ArrayList<String> tags = new ArrayList<String>();
+        for(String tag : content.split(" ")){
+            if(tag.startsWith("@"))
+                tags.add(tag);
+        }
+        return tags;
+    }
     public static  String  uploadFile(CommonsMultipartFile file) throws FileNotFoundException, IOException{ 
         AmazonS3 s3Client = awsS3Client();
         String contentType = file.getContentType();

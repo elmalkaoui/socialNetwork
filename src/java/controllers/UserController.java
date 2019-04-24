@@ -22,6 +22,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
 import service.AccountService;
+import service.MessageService;
 import service.NotificationService;
 import service.PostService;
 import service.UserService;
@@ -45,6 +46,9 @@ public class UserController extends AbstractController {
 
     @Autowired
     NotificationService notificationService;
+
+    @Autowired
+    MessageService messageService;
 
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public String init(HttpServletRequest request) {
@@ -170,34 +174,19 @@ public class UserController extends AbstractController {
             ModelAndView mv = new ModelAndView("posts");
             UserEntity user = ((AccountEntity) session.getAttribute("currentUser")).getUser();
             String content = request.getParameter("content");
-            if (!file.getOriginalFilename().isEmpty()) {
-                String link = Util.uploadFile(file);
-                PostEntity post = new PostEntity(content, link, file.getContentType(), user);
-                postService.addPost(post);
-                userService.addPost(user, post);
-                //check fo tags
-                if (content.contains("@")) {
-                    String[] tags = content.substring(content.indexOf("@")).split(" ");
-                    for (String tag : tags) {
-                        UserEntity receiver = userService.getUserByUserName(tag.substring(1));
-                        if (receiver != null) {
-                            NotificationEntity not = new NotificationEntity(user, receiver, post);
-                            notificationService.addNotification(not);
-                        }
-                    }
-                }
-            } else {
-                PostEntity post = new PostEntity(content, "", "", user);
-                postService.addPost(post);
-                userService.addPost(user, post);
-                if (content.contains("@")) {
-                    String[] tags = content.substring(content.indexOf("@")).split(" ");
-                    for (String tag : tags) {
-                        UserEntity receiver = userService.getUserByUserName(tag.substring(1));
-                        if (receiver != null) {
-                            NotificationEntity not = new NotificationEntity(user, receiver, post);
-                            notificationService.addNotification(not);
-                        }
+            String link = !file.getOriginalFilename().isEmpty() ? Util.uploadFile(file) : "";
+            String fileType = !file.getOriginalFilename().isEmpty() ? file.getContentType() : "";
+            PostEntity post = new PostEntity(content, link, file.getContentType(), user);
+            postService.addPost(post);
+            userService.addPost(user, post);
+            //check fo tags
+            if (content.contains("@")) {
+                for (String tag : Util.getTags(content)) {
+                    System.out.println("controllers.UserController.addPost() - tags : " + tag);
+                    UserEntity receiver = userService.getUserByUserName(tag.substring(1));
+                    if (receiver != null) {
+                        NotificationEntity not = new NotificationEntity(user, receiver, post.getContent());
+                        notificationService.addNotification(not);
                     }
                 }
             }
@@ -283,7 +272,6 @@ public class UserController extends AbstractController {
             AccountEntity account = (AccountEntity) session.getAttribute("currentUser");
             if (firstname != null && lastname != null
                     && birthdate != null && password != null) {
-
                 account.setPassword(password);
                 account.getUser().setFirstname(firstname);
                 account.getUser().setLastname(lastname);
@@ -292,10 +280,8 @@ public class UserController extends AbstractController {
                 if (imageLink != null) {
                     account.getUser().setImageLink(imageLink);
                 }
+                userService.update(account.getUser());
                 accountService.updateAccount(account);
-                ModelAndView mv = new ModelAndView("setting");
-                mv.addObject("account", account);
-                return mv;
             }
             ModelAndView mv = new ModelAndView("setting");
             mv.addObject("account", account);
