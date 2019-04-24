@@ -174,7 +174,7 @@ public class UserController extends AbstractController {
             ModelAndView mv = new ModelAndView("posts");
             UserEntity user = ((AccountEntity) session.getAttribute("currentUser")).getUser();
             String content = request.getParameter("content");
-            String link = !file.getOriginalFilename().isEmpty() ? Util.uploadFile(file) : "";
+            String link = !file.getOriginalFilename().isEmpty() ? Util.uploadFile(file) : user.getImageLink();
             String fileType = !file.getOriginalFilename().isEmpty() ? file.getContentType() : "";
             PostEntity post = new PostEntity(content, link, file.getContentType(), user);
             postService.addPost(post);
