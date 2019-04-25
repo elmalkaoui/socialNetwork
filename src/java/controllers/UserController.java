@@ -6,6 +6,7 @@
 package controllers;
 
 import entities.AccountEntity;
+import entities.MessageEntity;
 import entities.NotificationEntity;
 import entities.PostEntity;
 import entities.UserEntity;
@@ -307,13 +308,33 @@ public class UserController extends AbstractController {
         return mv;
     }
     
-    @RequestMapping(value = "addMessage", method = RequestMethod.POST)
-    protected ModelAndView addMessage(HttpServletRequest request) throws Exception {
+    @RequestMapping(value = "sendMessage", method = RequestMethod.POST)
+    protected ModelAndView sendMessage(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("currentUser") != null) {
+            AccountEntity account = (AccountEntity) session.getAttribute("currentUser");
+            UserEntity receiver = userService.getUserByID(Long.parseLong(request.getParameter("receiverID")));
+            MessageEntity msg = new MessageEntity(request.getParameter("message"), account.getUser(), receiver);
+            messageService.addMessage(msg);
+            ModelAndView mv = new ModelAndView("chat");
+            mv.addObject("account", account);
+            return mv;
+        } else {
+            ModelAndView mv = new ModelAndView("index");
+            mv.addObject("message", "You must login");
+            return mv;
+        }
+    }
+    
+    @RequestMapping(value = "messages", method = RequestMethod.GET)
+    protected ModelAndView getMessages(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("currentUser") != null) {
             ModelAndView mv = new ModelAndView("chat");
             AccountEntity account = (AccountEntity) session.getAttribute("currentUser");
+            List<MessageEntity> messages = messageService.getMessages(account.getUser().getId(), Long.parseLong(request.getParameter("receiver")));
             mv.addObject("account", account);
+            mv.addObject("messages", messages);
             return mv;
         } else {
             ModelAndView mv = new ModelAndView("index");

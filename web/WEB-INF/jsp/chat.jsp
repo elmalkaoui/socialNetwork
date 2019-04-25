@@ -1,19 +1,17 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <link href="${contextPath}/resources/css/chat.css" type="text/css" rel="stylesheet"
+        <link href="${contextPath}/resources/css/chat.css" type="text/css" rel="stylesheet" />
         <title>facebook</title>
     </head>
     <body>
         <jsp:include page="navbar.jsp" />
-        <div class="container">
-            <h3 class=" text-center">Messaging</h3>
+        <div class="chat-container">
             <div class="messaging">
                 <div class="inbox_msg">
                     <div class="inbox_people">
@@ -119,14 +117,15 @@
                                         solutions</p>
                                     <span class="time_date"> 11:01 AM    |    June 9</span> </div>
                             </div>
-                        <div class="type_msg">
-                            <div class="input_msg_write">
-                                <input type="text" class="write_msg" placeholder="Type a message" />
-                                <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                            <div class="type_msg">
+                                <div class="input_msg_write">
+                                    <input type="text" class="write_msg" name="message" placeholder="Type a message" required/>
+                                    <button class="msg_send_btn" type="button"><img src="${contextPath}/resources/img/send.svg" width="30%" style="color:white"</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div></div>
+                </div></div>
+        </div>
     </body>
 </html>

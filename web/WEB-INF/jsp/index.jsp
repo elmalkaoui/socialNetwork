@@ -27,14 +27,20 @@
                         <h1></h1><br>
                         <input type="submit" class="btn btn-dark" name="signin" value="Log in"/>
                     </div>
-                    
                 </form>
+                <br>
+                <div class="col-md-3">
+                    <c:if test="${message != null}" >
+                    <div class="alert alert-warning">
+                        <strong>${message}</strong>
+                    </div>
+                </c:if>
+                </div>
             </div>
             <div>
                 <div class="card signup-card col-md-3">
                     <div class="card-body">
                         <h2 class="card-title">Join the world</h2>
-                        <h5 style="color:red">${message}</h5><br>
                         <div class="card-text">
                             <form action="signup.htm" method="POST">
                                 <input type="text" name="username" placeholder="username" class="form form-control"/><br>
