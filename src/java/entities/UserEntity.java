@@ -18,6 +18,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import util.Util;
 
 /**
@@ -25,6 +27,7 @@ import util.Util;
  * @author THINKPAD T450
  */
 @Entity
+@XmlRootElement
 public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -98,10 +101,12 @@ public class UserEntity implements Serializable {
         this.birthdate = birthdate;
     }
 
+    @XmlTransient
     public List<UserEntity> getFriends() {
         return friends;
     }
 
+    @XmlTransient
     public List<PostEntity> getPosts() {
         return posts;
     }

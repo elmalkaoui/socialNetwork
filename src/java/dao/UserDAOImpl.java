@@ -95,7 +95,5 @@ public class UserDAOImpl implements UserDAO{
         List<UserEntity> list = q.getResultList();
         return list != null ? !list.isEmpty() ? (UserEntity)list.get(0) : null : null ;
     }
-    
-    
-    
+       
 }

@@ -1,0 +1,7 @@
+.bg {
+    background-image: url("https://s3.eu-west-3.amazonaws.com/projectaaw/background.jpg");
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

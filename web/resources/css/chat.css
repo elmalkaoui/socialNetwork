@@ -92,7 +92,7 @@ img{ max-width:100%;}
 .mesgs {
   float: left;
   padding: 30px 15px 0 25px;
-  width: 80%;
+  width: 100%;
   height: 80vh;
 }
 
@@ -123,7 +123,11 @@ img{ max-width:100%;}
 
 .type_msg {
     border-top: 1px solid #c4c4c4;
-    position: relative;
+    position: fixed;
+    padding: 0 0 0 30px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     
 }
 .msg_send_btn {
@@ -135,12 +139,12 @@ img{ max-width:100%;}
   font-size: 17px;
   height: 33px;
   position: absolute;
-  right: 0;
-  top: 11px;
+  right: 20px;
+  top: 10px;
   width: 5%;
 }
 .messaging { 
-    padding: 0 0 50px 0;
+    padding: 0 0 0 0;
     height: 94vh;
 }
 .msg_history {

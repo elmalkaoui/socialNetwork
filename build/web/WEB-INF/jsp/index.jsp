@@ -17,11 +17,11 @@
                 <form action="signin.htm" method="POST">
                     <div>
                         <label>Username</label>
-                        <input type="text" name="username" placeholder="Yassine" class="form form-control"/>
+                        <input type="text" name="username" placeholder="type your username" class="form form-control" required/>
                     </div>
                     <div>
                         <label>Password</label>
-                        <input type="password" name="password" placeholder="********" class="form form-control"/>    
+                        <input type="password" name="password" placeholder="********" class="form form-control" required/>    
                     </div>
                     <div>
                         <h1></h1><br>
@@ -43,12 +43,12 @@
                         <h2 class="card-title">Join the world</h2>
                         <div class="card-text">
                             <form action="signup.htm" method="POST">
-                                <input type="text" name="username" placeholder="username" class="form form-control"/><br>
-                                <input type="text" name="firstname" placeholder="firstname" class="form form-control"/><br>
-                                <input type="text" name="lastname" placeholder="lastname" class="form form-control"/><br>
-                                <input type="password" name="password" placeholder="password" class="form form-control"/><br>
+                                <input type="text" name="username" placeholder="username" class="form form-control" required/><br>
+                                <input type="text" name="firstname" placeholder="firstname" class="form form-control" required/><br>
+                                <input type="text" name="lastname" placeholder="lastname" class="form form-control" required/><br>
+                                <input type="password" name="password" placeholder="password" class="form form-control" required/><br>
                                 <label>Birthdate</label>
-                                <input type="date" name="birthdate" class="form form-control"/><br>
+                                <input type="date" name="birthdate" class="form form-control" required/><br>
 
                                 <input type="submit" class="btn btn-outline-primary" name="signin" value="Sign up"/>
                             </form>

@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -17,7 +18,7 @@
     </head>
     <body>
         <jsp:include page="navbar.jsp" />
-        
+
         <br>
         <div class="container">
             <center>
@@ -51,7 +52,20 @@
                                     <td><h5>&nbsp;${post.author}</h5></td>
                                 </tr></table>
                             <p>${post.content}</p>
-                            <img class="card-img-top" src="<c:url value="${post.fileLink}" />" alt="Card image" style="width:100%">                       
+                            <c:if test = "${post.fileLink != ''}">
+                                <c:if test = "${fn:startsWith(post.fileType, 'image')}">
+                                    <img class="card-img-top" src="<c:url value="${post.fileLink}" />" alt="Card image" style="width:100%">                       
+                                </c:if>
+                                <c:if test = "${fn:startsWith(post.fileType, 'video')}">
+                                    <video style="width:100%" controls>
+                                        <source src="<c:url value="${post.fileLink}" />" type="<c:url value="${post.fileType}" />"/>
+                                        <source src="<c:url value="${post.fileLink}" />" type="<c:url value="${post.fileType}" />"/>
+                                    </video>
+                                </c:if>
+                                <c:if test = "${fn:startsWith(post.fileType, 'application')}">
+                                    <a href="<c:url value="${post.fileLink}" />"><c:url value="${post.fileLink}" /></a>                       
+                                </c:if>
+                            </c:if>
                         </div>
                     </div>
                 </c:forEach>

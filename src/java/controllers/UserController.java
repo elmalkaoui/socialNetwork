@@ -129,7 +129,7 @@ public class UserController extends AbstractController {
             return mv;
         }
     }
-    
+
     @RequestMapping(value = "chat", method = RequestMethod.GET)
     protected ModelAndView chat(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
@@ -137,6 +137,21 @@ public class UserController extends AbstractController {
             ModelAndView mv = new ModelAndView("chat");
             AccountEntity account = (AccountEntity) session.getAttribute("currentUser");
             mv.addObject("account", account);
+            return mv;
+        } else {
+            ModelAndView mv = new ModelAndView("index");
+            mv.addObject("message", "You must login");
+            return mv;
+        }
+    }
+    
+    @RequestMapping(value = "recentchat", method = RequestMethod.GET)
+    protected ModelAndView recentChat(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("currentUser") != null) {
+            ModelAndView mv = new ModelAndView("recentChat");
+            UserEntity user = ((AccountEntity) session.getAttribute("currentUser")).getUser();
+            mv.addObject("friends", user.getFriends());
             return mv;
         } else {
             ModelAndView mv = new ModelAndView("index");
@@ -190,7 +205,7 @@ public class UserController extends AbstractController {
             ModelAndView mv = new ModelAndView("posts");
             UserEntity user = ((AccountEntity) session.getAttribute("currentUser")).getUser();
             String content = request.getParameter("content");
-            String link = !file.getOriginalFilename().isEmpty() ? Util.uploadFile(file) : user.getImageLink();
+            String link = !file.getOriginalFilename().isEmpty() ? Util.uploadFile(file) : "";
             String fileType = !file.getOriginalFilename().isEmpty() ? file.getContentType() : "";
             PostEntity post = new PostEntity(content, link, file.getContentType(), user);
             postService.addPost(post);
@@ -246,6 +261,7 @@ public class UserController extends AbstractController {
             ModelAndView mv = new ModelAndView("friends");
             String message = "friend added to yout friend list";
             mv.addObject("message", message);
+            mv.addObject("friends", user.getFriends());
             return mv;
         } else {
             ModelAndView mv = new ModelAndView("index");
@@ -265,7 +281,7 @@ public class UserController extends AbstractController {
                 userService.update(user);
                 ModelAndView mv = new ModelAndView("friends");
                 String message = "friend removed from your friend list";
-                mv.addObject("message", message);
+                mv.addObject("friends", user.getFriends());
                 return mv;
             }
             ModelAndView mv = new ModelAndView("friends");
@@ -292,7 +308,7 @@ public class UserController extends AbstractController {
                 account.getUser().setFirstname(firstname);
                 account.getUser().setLastname(lastname);
                 account.getUser().setBirthdate(birthdate);
-                String imageLink = Util.uploadFile(image);
+                String imageLink = !image.getOriginalFilename().isEmpty() ? Util.uploadFile(image) : account.getUser().getImageLink();
                 if (imageLink != null) {
                     account.getUser().setImageLink(imageLink);
                 }
@@ -307,33 +323,23 @@ public class UserController extends AbstractController {
         mv.addObject("message", "You must login");
         return mv;
     }
-    
+
     @RequestMapping(value = "sendMessage", method = RequestMethod.POST)
     protected ModelAndView sendMessage(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("currentUser") != null) {
+        Long receiverID = request.getParameter("receiver") != null ? Long.parseLong(request.getParameter("receiver")) : -1;
+        String message = request.getParameter("message") != null ? request.getParameter("message") : "";
+        System.out.println("controllers.UserController.getMessages() - receiver : " + receiverID);
+        System.out.println("controllers.UserController.getMessages() - message : " + message);
+        if (session != null && session.getAttribute("currentUser") != null && receiverID != -1 && !message.isEmpty()) {
             AccountEntity account = (AccountEntity) session.getAttribute("currentUser");
-            UserEntity receiver = userService.getUserByID(Long.parseLong(request.getParameter("receiverID")));
-            MessageEntity msg = new MessageEntity(request.getParameter("message"), account.getUser(), receiver);
+            UserEntity receiver = userService.getUserByID(receiverID);
+            MessageEntity msg = new MessageEntity(message, account.getUser(), receiver);
             messageService.addMessage(msg);
+            List<MessageEntity> messages = messageService.getMessages(account.getUser().getId(), receiverID);
             ModelAndView mv = new ModelAndView("chat");
             mv.addObject("account", account);
-            return mv;
-        } else {
-            ModelAndView mv = new ModelAndView("index");
-            mv.addObject("message", "You must login");
-            return mv;
-        }
-    }
-    
-    @RequestMapping(value = "messages", method = RequestMethod.GET)
-    protected ModelAndView getMessages(HttpServletRequest request) throws Exception {
-        HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("currentUser") != null) {
-            ModelAndView mv = new ModelAndView("chat");
-            AccountEntity account = (AccountEntity) session.getAttribute("currentUser");
-            List<MessageEntity> messages = messageService.getMessages(account.getUser().getId(), Long.parseLong(request.getParameter("receiver")));
-            mv.addObject("account", account);
+            mv.addObject("receiver", receiverID);
             mv.addObject("messages", messages);
             return mv;
         } else {
@@ -342,7 +348,27 @@ public class UserController extends AbstractController {
             return mv;
         }
     }
-    
+
+    @RequestMapping(value = "messages", method = RequestMethod.POST)
+    protected ModelAndView getMessages(HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession(false);
+        Long receiverID = request.getParameter("receiver") != null ? Long.parseLong(request.getParameter("receiver")) : -1;
+        System.out.println("controllers.UserController.getMessages() - receiver : " + receiverID);
+        if (session != null && session.getAttribute("currentUser") != null) {
+            ModelAndView mv = new ModelAndView("chat");
+            AccountEntity account = (AccountEntity) session.getAttribute("currentUser");
+            List<MessageEntity> messages = messageService.getMessages(account.getUser().getId(), receiverID);
+            mv.addObject("account", account);
+            mv.addObject("receiver", receiverID);
+            mv.addObject("messages", messages);
+            return mv;
+        } else {
+            ModelAndView mv = new ModelAndView("index");
+            mv.addObject("message", "You must login");
+            return mv;
+        }
+    }
+
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

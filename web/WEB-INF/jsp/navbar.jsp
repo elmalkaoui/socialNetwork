@@ -36,7 +36,7 @@
                     <a class="nav-link" href="${contextPath}/notifications.htm"><span style="color:white;font-weight: bold" class="oi oi-bell"></span></a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/chat.htm"><span style="color:white;font-weight: bold" class="oi oi-chat"></span></a>
+                    <a class="nav-link" href="${contextPath}/recentchat.htm"><span style="color:white;font-weight: bold" class="oi oi-chat"></span></a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="${contextPath}/logout.htm"><span style="color:white;font-weight: bold" class="oi oi-account-logout"></span></a>

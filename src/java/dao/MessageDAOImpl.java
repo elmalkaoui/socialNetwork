@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -30,32 +31,37 @@ public class MessageDAOImpl implements MessageDAO {
     public void setEm(EntityManager em) {
         this.em = em;
     }
-
+    
+    @Transactional
     @Override
     public void save(MessageEntity msg) {
         msg = em.merge(msg);
         em.persist(msg);
     }
 
+    @Transactional
     @Override
     public void update(MessageEntity msg) {
         msg = em.merge(msg);
         em.persist(msg);
     }
-
+    
+    @Transactional
     @Override
     public void delete(MessageEntity msg) {
         em.remove(msg);
     }
-
+    
+    @Transactional
     @Override
     public MessageEntity find(long id) {
         return em.find(MessageEntity.class, id );
     }
 
+    @Transactional
     @Override
     public List<MessageEntity> findAll(Long senderID, Long receiverID) {
-        Query q = em.createQuery("SELECT m FROM MessageEntity m WHERE sender_id = "+senderID+" AND reciver_id = "+receiverID, MessageEntity.class);
+        Query q = em.createNativeQuery("SELECT * FROM MessageEntity m WHERE m.sender_id = "+senderID+" AND m.receiver_id = "+receiverID+" OR m.sender_id = "+receiverID+" AND m.receiver_id = "+senderID, MessageEntity.class);
         return q.getResultList();
     }
 

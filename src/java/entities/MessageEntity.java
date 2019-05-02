@@ -6,7 +6,10 @@
 package entities;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,12 +17,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author THINKPAD T450
  */
 @Entity
+@XmlRootElement
 public class MessageEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,7 +53,8 @@ public class MessageEntity implements Serializable {
     public MessageEntity(String message, UserEntity sender, UserEntity receiver) {
         this.message = message;
         this.sender = sender;
-        this.receiver = receiver;
+        this.receiver = receiver;        
+        date = LocalDateTime.now();
     }
     
     public Long getId() {
@@ -93,4 +101,13 @@ public class MessageEntity implements Serializable {
     public UserEntity getReceiver() {
         return receiver;
     }  
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+    
 }
