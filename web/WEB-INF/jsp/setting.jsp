@@ -40,19 +40,19 @@
                             </div>
                             <div class="form-group">
                                 <label>firstname</label><br>
-                                <input type="text" name="firstname" class="form-control" value="${account.user.firstname}" />
+                                <input type="text" name="firstname" class="form-control" value="${account.user.firstname}" required/>
                             </div>
                             <div class="form-group">
                                 <label>lastname</label><br>
-                                <input type="text" name="lastname" class="form-control" value="${account.user.lastname}" />
+                                <input type="text" name="lastname" class="form-control" value="${account.user.lastname}" required/>
                             </div>
                             <div class="form-group">
                                 <label>birth date</label><br>
-                                <input type="date" name="birthdate" class="form-control" value="${account.user.birthdate}" />
+                                <input type="date" name="birthdate" class="form-control" value="${account.user.birthdate}" required/>
                             </div>
                             <div class="form-group">
                                 <label>password</label><br>
-                                <input type="password" name="password" class="form-control" value="${account.password}"/>
+                                <input type="password" name="password" class="form-control" value="${account.password}" required/>
                             </div>
                             <div class="form-group">                    
                                 <input type="submit" name="update"  value="update" class="btn btn-primary form-control"/>
