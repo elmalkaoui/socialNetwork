@@ -144,7 +144,7 @@ public class UserController extends AbstractController {
             return mv;
         }
     }
-    
+
     @RequestMapping(value = "recentchat", method = RequestMethod.GET)
     protected ModelAndView recentChat(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
@@ -325,7 +325,7 @@ public class UserController extends AbstractController {
     }
 
     @RequestMapping(value = "sendMessage", method = RequestMethod.POST)
-    protected ModelAndView sendMessage(HttpServletRequest request) throws Exception {
+    protected ModelAndView sendMessage(@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
         Long receiverID = request.getParameter("receiver") != null ? Long.parseLong(request.getParameter("receiver")) : -1;
         String message = request.getParameter("message") != null ? request.getParameter("message") : "";
@@ -334,7 +334,9 @@ public class UserController extends AbstractController {
         if (session != null && session.getAttribute("currentUser") != null && receiverID != -1 && !message.isEmpty()) {
             AccountEntity account = (AccountEntity) session.getAttribute("currentUser");
             UserEntity receiver = userService.getUserByID(receiverID);
-            MessageEntity msg = new MessageEntity(message, account.getUser(), receiver);
+            String fileLink = !file.getOriginalFilename().isEmpty() ? Util.uploadFile(file) : account.getUser().getImageLink();
+            String fileType = !file.getOriginalFilename().isEmpty() ? file.getContentType() : "";
+            MessageEntity msg = new MessageEntity(message, fileLink, fileType, account.getUser(), receiver);
             messageService.addMessage(msg);
             List<MessageEntity> messages = messageService.getMessages(account.getUser().getId(), receiverID);
             ModelAndView mv = new ModelAndView("chat");

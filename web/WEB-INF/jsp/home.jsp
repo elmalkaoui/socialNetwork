@@ -20,7 +20,7 @@
         <jsp:include page="navbar.jsp" /> 
         <div class="container">
             <div class="bg">
-                <h1>${message}</h1>
+                <h1>Welcome back <c:out value='${sessionScope.account.user}'/></h1>
             </div>
         </div>    
     </body>

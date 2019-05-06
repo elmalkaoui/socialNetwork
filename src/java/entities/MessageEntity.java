@@ -6,10 +6,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,8 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -40,6 +35,12 @@ public class MessageEntity implements Serializable {
     @Column
     private LocalDateTime date;
     
+    @Column
+    private String fileLink;
+    
+    @Column
+    private String fileType;
+    
     @OneToOne( fetch = FetchType.EAGER )
     private UserEntity sender;
     
@@ -50,8 +51,10 @@ public class MessageEntity implements Serializable {
     }
 
     
-    public MessageEntity(String message, UserEntity sender, UserEntity receiver) {
+    public MessageEntity(String message,String file, String contentType, UserEntity sender, UserEntity receiver) {
         this.message = message;
+        this.fileLink = file;
+        this.fileType = contentType;
         this.sender = sender;
         this.receiver = receiver;        
         date = LocalDateTime.now();
@@ -109,5 +112,21 @@ public class MessageEntity implements Serializable {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
-    
+
+    public String getFileLink() {
+        return fileLink;
+    }
+
+    public void setFileLink(String fileLink) {
+        this.fileLink = fileLink;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+           
 }

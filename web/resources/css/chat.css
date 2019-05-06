@@ -143,6 +143,20 @@ img{ max-width:100%;}
   top: 10px;
   width: 5%;
 }
+
+.upload {
+  background: cornflowerblue none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 50vh;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  height: 33px;
+  position: absolute;
+  left: 0px;
+  top: 10px;
+  width: 5%;
+}
 .messaging { 
     padding: 0 0 0 0;
     height: 94vh;

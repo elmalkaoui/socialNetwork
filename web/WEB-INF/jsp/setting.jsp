@@ -68,7 +68,6 @@
                                     <tr>
                                         <td><img src="${post.author.imageLink}" style="width:50px; height:50px; border-radius:50%"></td>
                                         <td><h5>&nbsp;${post.author}</h5></td>
-                                        <td><form method="POST" action="removePost.htm"><input type="submit" class="btn btn-danger" value="delete" /></form></td>
                                     </tr>
                                 </table>
                                 <p>${post.content}</p>
